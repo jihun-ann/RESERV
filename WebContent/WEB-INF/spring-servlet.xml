@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:aop="http://www.springframework.org/schema/aop"
-        xmlns="http://www.springframework.org/schema/beans"
-        xmlns:p="http://www.springframework.org/schema/p"
-        xmlns:context="http://www.springframework.org/schema/context"
-        xmlns:mvc="http://www.springframework.org/schema/mvc"
-        xsi:schemaLocation="http://www.springframework.org/schema/mvc
-							http://www.springframework.org/schema/mvc/spring-mvc.xsd    http://www.springframework.org/schema/aop
-							http://www.springframework.org/schema/aop/spring-aop.xsd    http://www.springframework.org/schema/beans
-							http://www.springframework.org/schema/beans/spring-beans.xsd    http://www.springframework.org/schema/context
-							http://www.springframework.org/schema/context/spring-context.xsd">
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 							
 		<mvc:annotation-driven/>
 		<mvc:default-servlet-handler/>
@@ -35,6 +35,33 @@
 		    <property name="order" value="1" />
 		</bean>
 		
+		
+		<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
+		  <property value="oracle.jdbc.driver.OracleDriver" name="driverClassName" />
+		  <property value="jdbc:oracle:thin:@localhost:1521:xe" name="url" />
+		  <!-- 오라클 사용자 이름 -->
+		  <property value="reserv" name="username" />
+		  <!-- 오라클 사용자 비밀번호 -->
+		  <property value="oracle" name="password" />
+		</bean>
+		
+        <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+			<constructor-arg name="sqlSessionFactory" ref="SqlSessionFactory"></constructor-arg>
+		</bean>
+		
+		<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="SqlSessionFactory">
+		  <property name="dataSource" ref="dataSource" />
+		  <property value="classpath:/Mappers/mybatis-config.xml" name="configLocation" />
+		  <property value="classpath:/Mappers/*SQL.xml" name="mapperLocations" />
+		</bean>
+		
+		<mybatis:scan base-package="Mapper"/>
+		
         <context:annotation-config />
-        <context:component-scan base-package="Controller"/>
+        <context:component-scan base-package="Controller, Service, DAO, VO">
+        	<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        	<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        </context:component-scan>
+        
 </beans>

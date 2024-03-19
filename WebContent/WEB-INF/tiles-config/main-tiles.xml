@@ -4,12 +4,16 @@
 <tiles-definitions>
 	<!-- 기본 layout 설정 -->
    <definition name="layout" template="/WEB-INF/layout/default.jsp">
+      <put-attribute name="css" value="/WEB-INF/layout/css.jsp"/>
       <put-attribute name="header" value="/WEB-INF/layout/header.jsp"/>
       <put-attribute name="menu" value="/WEB-INF/layout/menu.jsp"/>
       <put-attribute name="content" value="/WEB-INF/layout/content.jsp"/>
    </definition>
    
    <!-- content -->
+   <definition name="*.e" template="/WEB-INF/errors/error.jsp">
+   </definition>
+   
    <definition name="*.t" extends="layout">
      <put-attribute name="content" value="/WEB-INF/views/{1}.jsp"></put-attribute>
    </definition>

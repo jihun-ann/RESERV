@@ -5,11 +5,14 @@
 <html>
 <head>
 <title>Reserv Service</title>
-	<tiles:insertAttribute name="css" ignore="true"></tiles:insertAttribute>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
+	<%-- <tiles:insertAttribute name="css" ignore="true"></tiles:insertAttribute> --%>
 </head>
 <body>
 	<tiles:insertAttribute name="header" ignore="true"></tiles:insertAttribute>
-	<tiles:insertAttribute name="menu" ignore="true"></tiles:insertAttribute>
-	<tiles:insertAttribute name="content" ignore="true"></tiles:insertAttribute>
+	<div id="content-wrap">
+		<tiles:insertAttribute name="menu" ignore="true"></tiles:insertAttribute>
+		<tiles:insertAttribute name="content" ignore="true"></tiles:insertAttribute>
+	</div>
 </body>
 </html>
