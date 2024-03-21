@@ -12,7 +12,8 @@ create table serv_user(
     userssn varchar(200),
     userphonenum varchar(30) not null,
     useraddress varchar(500) not null,
-    userrole varchar(30) not null,
+    authority varchar(30) not null,
+    enabled number default 1,
     str_01 varchar(100),
     str_02 varchar(100),
     str_03 varchar(100),
@@ -22,7 +23,7 @@ create table serv_user(
     constraint serv_user_uk UNIQUE (userid)
 );
 
-insert into serv_user(usernum,userid,userpw,username,userssn,userphonenum,useraddress,userrole) values(user_seq.nextval,'test','test','test','010101-0101010','010-0000-0000','test','user');
+insert into serv_user(usernum,userid,userpw,username,userssn,userphonenum,useraddress,hasrole) values(user_seq.nextval,'test','test','test','010101-0101010','010-0000-0000','test','user');
 
 drop table serv_menu;
 create table serv_menu(
@@ -40,6 +41,9 @@ create table serv_menu(
     CONSTRAINT serv_userid_fk FOREIGN key(userid) REFERENCES serv_user(userid) on delete cascade,
     CONSTRAINT serv_userid_fk2 FOREIGN key(compcode) REFERENCES serv_company(compcode) on delete cascade
 );
+create SEQUENCE menu_seq;
+
+drop table serv_company;
 
 create table serv_company(
     compnum number,
@@ -59,4 +63,6 @@ create table serv_company(
    constraint serv_comp_fk FOREIGN key (compuser) REFERENCES serv_user(userid),
    constraint serv_comp_uk unique (compcode)
 );
+create SEQUENCE comp_seq;
 
+create table 

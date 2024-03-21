@@ -1,0 +1,42 @@
+#signform{
+  width: 1000px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+hr{
+  width: 350px;
+  margin: 20px auto;
+}
+input[type="text"]{
+  width: 200px;
+  margin: 10px auto;
+  height: 30px;
+  line-height: 30px;
+}
+input[type="submit"]{
+  width: 150px;
+  height: 30px;
+  margin: 10px auto;
+}
+input[name="userzonecode"]{
+  width: 65px;
+  height: 30px;
+}
+#iddup, #phndup, #ssndup{
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  margin: 10px 10px;
+  line-height: 30px;
+  text-align: center;
+  background: lightgrey;
+}
+#iddup:hover, #phndup:hover, #ssndup:hover{
+  cursor: pointer;
+  background: blue;
+  color: white;
+}
